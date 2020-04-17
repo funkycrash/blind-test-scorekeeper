@@ -1,5 +1,6 @@
 <template>
   <div>
+    <BaseIcon name="user" />
     <h1>{{ name }} {{ id }}</h1>
     <h2>{{ score }}</h2>
     <span class="button" v-on:click="increaseScore(id)">+</span>
