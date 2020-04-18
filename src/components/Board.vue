@@ -1,6 +1,8 @@
 <template>
   <main>
-    <h1>{{ title }}</h1>
+    <h1>
+      {{ title }} <span>with {{ numberOfPlayers }} players</span>
+    </h1>
     <div class="board">
       <div class="player" v-for="player in players" v-bind:key="player.id">
         <Player
@@ -17,6 +19,7 @@
 
 <script>
 import Player from '@/components/Player.vue'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -26,24 +29,8 @@ export default {
     Player,
   },
   computed: {
-    // a computed getter
-    indexedPlayerList: function() {
-      return this.players.reduce(
-        (acc, item) => ((acc[item.id] = item), acc),
-        {},
-      )
-    },
-  },
-  data: function() {
-    return {
-      players: [
-        { id: 1, name: 'Player', score: 0 },
-        { id: 2, name: 'player', score: 0 },
-        { id: 3, name: 'player', score: 0 },
-        { id: 4, name: 'player', score: 0 },
-        { id: 5, name: 'player', score: 0 },
-      ],
-    }
+    ...mapGetters(['numberOfPlayers']),
+    ...mapState(['players']),
   },
   methods: {
     increaseScore(index) {
